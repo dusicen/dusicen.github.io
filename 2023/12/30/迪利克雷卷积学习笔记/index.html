@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>狄利克雷卷积学习笔记 | the blog of DSC</title><meta name="author" content="dusicen"><meta name="copyright" content="dusicen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Dirichlet series generating function 对于无穷序列 $f_1,f_2,f_3,f_4\cdots$ ，定义其狄利克雷生成函数为$\widetilde{F}(x)&#x3D;\sum_{i\ge1}\frac{f_i}{i^x}$ 当 $f$ 为积性函数时 $$\widetilde{F}(x)&#x3D;\prod_{p\in P}(\sum_{i\ge 0}\f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="狄利克雷卷积学习笔记">
+<meta property="og:url" content="https://dusicen.github.io/2023/12/30/%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="the blog of DSC">
+<meta property="og:description" content="Dirichlet series generating function 对于无穷序列 $f_1,f_2,f_3,f_4\cdots$ ，定义其狄利克雷生成函数为$\widetilde{F}(x)&#x3D;\sum_{i\ge1}\frac{f_i}{i^x}$ 当 $f$ 为积性函数时 $$\widetilde{F}(x)&#x3D;\prod_{p\in P}(\sum_{i\ge 0}\f">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/02/1G9YhrRcKI74vBk.png">
+<meta property="article:published_time" content="2023-12-30T09:01:39.000Z">
+<meta property="article:modified_time" content="2023-12-30T09:02:42.407Z">
+<meta property="article:author" content="dusicen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/02/1G9YhrRcKI74vBk.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://dusicen.github.io/2023/12/30/%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":20},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '狄利克雷卷积学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-30 17:02:42'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/12/02/1G9YhrRcKI74vBk.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2023/12/02/rsXUyzQDwMOEVAm.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="the blog of DSC"><img class="site-icon" src="/img/avatar.png"/><span class="site-name">the blog of DSC</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">狄利克雷卷积学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-30T09:01:39.000Z" title="发表于 2023-12-30 17:01:39">2023-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-30T09:02:42.407Z" title="更新于 2023-12-30 17:02:42">2023-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="狄利克雷卷积学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Dirichlet series generating function</p>
+<p>对于无穷序列 $f_1,f_2,f_3,f_4\cdots$ ，定义其狄利克雷生成函数为$\widetilde{F}(x)&#x3D;\sum_{i\ge1}\frac{f_i}{i^x}$</p>
+<p>当 $f$ 为积性函数时</p>
+<p>$$<br>\widetilde{F}(x)&#x3D;\prod_{p\in P}(\sum_{i\ge 0}\frac{f_{p^i}}{p^{ix}})<br>$$</p>
+<p>这个东西是很显然的，这里不再赘述。</p>
+<p>则 $1,1,1,1,1,1,1,1,1,1\cdots$ 狄利克雷生成函数为 $\sum_{i\ge0}\frac{1}{i^x}&#x3D;\zeta(x),\zeta(x)$为黎曼函数<del>（别问我为什么）</del></p>
+<p>有 </p>
+<p>$$<br>\zeta(x)&#x3D;\prod_{p\in P}(\sum_{i\ge0}\frac{1}{p^{ix}})&#x3D;\prod_{p\in P}\frac{1}{1-p^{-x}}<br>$$</p>
+<p>莫比乌斯函数$\mu\ DGF$：<br>$$<br>\widetilde{M}(x)&#x3D;\prod_{p\in P}(1+\frac{-1}{p^x}+0+0…)&#x3D;\prod_{p\in P}(1-p^{-x})<br>$$<br>显然$\zeta(x)\widetilde{M}(x)&#x3D;1&#x3D;\epsilon(x)$<br>$$<br>\epsilon(x)&#x3D;\left{\begin{aligned}&amp;1\quad x&#x3D;1\\&amp;0\quad otherwise\end{aligned}\right.<br>$$</p>
+<p>欧拉函数$\varphi\ DGF$：<br>$$<br>\begin{aligned}<br>\widetilde\Phi&amp;&#x3D;\prod_{p\in P}(1+\frac{p-1}{p^x}+\frac{p(p-1)}{p^{2x}}+\frac{p^2(p-1)}{p^{3x}}+\frac{p^3(p-1)}{p^{4x}}+\cdots)\\<br>&amp;&#x3D;\prod_{p\in P}(\frac{1}{p}+\frac{p-1}{p}+\frac{p-1}{p^x}+\frac{p-1}{p^{2x-1}}+\frac{p-1}{p^{3x-2}}+\frac{p-1}{p^{4x-3}}+\cdots)\\<br>&amp;&#x3D;\prod_{p\in P}(\frac{1}{p}+\frac{1-p^{-1}}{1-p^{1-x}})\\<br>&amp;&#x3D;\prod_{p\in P}\left(\frac{p^{-1}(1-p^{1-x})}{1-p^{1-x}}+\frac{1-p^{-1}}{1-p^{1-x}}\right)\\<br>&amp;&#x3D;\prod_{p\in P}\frac{1-p^{-x}}{1-p^{1-x}}<br>\end{aligned}<br>$$<br>幂函数$I_k(x)&#x3D;x^k\ DGF$：<br>$$<br>\begin{aligned}<br>\widetilde{I}&amp;&#x3D;\prod_{p\in P}(1+\frac{p^k}{p^x}+\frac{p^{2k}}{p^{2x}}+\frac{p^{3k}}{p^{3x}}+\cdots)\\<br>&amp;&#x3D;\prod_{p\in P}\sum_{i\ge 0}p^{i(k-x)}\\<br>&amp;&#x3D;\prod_{p\in P}\frac{1}{1-p^{k-x}}\\<br>&amp;&#x3D;\zeta(x-k)<br>\end{aligned}<br>$$<br>可知 $\widetilde{\Phi}\times\zeta(x)&#x3D;\zeta(x-1)$</p>
+<p>即得 $\varphi*1&#x3D;I(I表示I_k,k&#x3D;1)$</p>
+<p>狄利克雷卷积：<br>$$<br>h(x)&#x3D;\sum_{d|n}f(d)g(\frac{n}{d})<br>$$<br>简记为<br>$$<br>h&#x3D;f*g<br>$$<br>几个知识：</p>
+<ul>
+<li><p>两个序列的狄利克雷卷积</p>
+</li>
+<li><p>对于两个序列 $f,g$，其狄利克雷生成函数之积，对应的是两者的狄利克雷卷积序列的狄利克雷生成函数：</p>
+</li>
+</ul>
+<p>$$<br>\widetilde{F}(x)\widetilde{G}(x)&#x3D;\sum_{i\ge0}\frac{f_i}{i^x}\left(\sum_{j\ge0}\frac{g_j}{j^x}\right)&#x3D;\sum_{i\ge0}\sum_{j\ge0}\frac{f_ig_j}{(ij)^x}&#x3D;\sum_{i\ge0}\frac{1}{i^x}\sum_{d|n}f_dg_{\frac{n}{d}}&#x3D;\widetilde{H}(x)<br>$$</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://dusicen.github.io">dusicen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://dusicen.github.io/2023/12/30/%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://dusicen.github.io/2023/12/30/%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://dusicen.github.io" target="_blank">the blog of DSC</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/12/02/1G9YhrRcKI74vBk.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/25/CF915G-Coprime-Arrays/" title="CF915G-Coprime Arrays"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CF915G-Coprime Arrays</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2023/12/02/1G9YhrRcKI74vBk.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">dusicen</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/dusicen"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/30/%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="狄利克雷卷积学习笔记">狄利克雷卷积学习笔记</a><time datetime="2023-12-30T09:01:39.000Z" title="发表于 2023-12-30 17:01:39">2023-12-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/CF915G-Coprime-Arrays/" title="CF915G-Coprime Arrays">CF915G-Coprime Arrays</a><time datetime="2023-12-25T07:28:48.000Z" title="发表于 2023-12-25 15:28:48">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/24/CF1413E%E9%A2%98%E8%A7%A3/" title="CF1413E题解">CF1413E题解</a><time datetime="2023-12-24T13:51:46.000Z" title="发表于 2023-12-24 21:51:46">2023-12-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By dusicen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
